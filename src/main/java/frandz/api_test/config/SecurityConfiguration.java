@@ -37,9 +37,6 @@ public class SecurityConfiguration {
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
-
-
-
                 )
                 .exceptionHandling(
                         exception -> exception.accessDeniedHandler(jwtAccessDeniedHandler)

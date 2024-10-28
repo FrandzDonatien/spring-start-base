@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,20 +14,22 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @Entity
+@Getter
 @Table(name = "utilisateur")
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "utilisateur_id", nullable = false)
     private Long id;
-    @Getter
+
+    @Column(name = "name")
+    private String name;
     @Column(name = "email")
     private String email;
-
     @Column(name = "password")
     private String password;
-    @Getter
     @Column(name = "avatar")
     private String avatar;
 

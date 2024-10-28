@@ -13,4 +13,5 @@ public class SecurityConstant {
     public static final String ACCESS_DENIED_MESSAGE ="You do not have permission to access this page";
     public static final String OPTION_HTTP_METHOD ="OPTIONS";
     public static final String[] PUBLIC_URLS ={ "/api/v1/auth/**"};
+    public static  final String APP_BASE_URL = "/api/v1";
 }

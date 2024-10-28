@@ -1,7 +1,11 @@
 package frandz.api_test.exception;
 
+import frandz.api_test.domain.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
@@ -14,4 +18,16 @@ public class ExceptionHandling {
     private static final String ACCOUNT_DISABLED = "Your account has been disable.";
     private static final String ERROR_PROCESSING_FILE = "Error occurred while processing file";
     private static final String NOT_ENOUGH_PERMISSION = "You do not have enough permission";
+
+
+
+    @ExceptionHandler(EmailExistException.class)
+    public ResponseEntity<HttpResponse> emailExistException(EmailExistException exception){
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage().toUpperCase());
+    }
+
+    private ResponseEntity<HttpResponse> createHttpResponse(HttpStatus httpStatus, String message){
+        HttpResponse httpResponse = new HttpResponse(httpStatus.value(), httpStatus,httpStatus.getReasonPhrase().toUpperCase(), message.toUpperCase());
+        return new ResponseEntity<>(httpResponse, httpStatus);
+    }
 }
