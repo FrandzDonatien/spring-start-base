@@ -1,16 +1,15 @@
 package frandz.api_test.controller.authController;
 
 import frandz.api_test.exception.EmailExistException;
+import frandz.api_test.exception.ExpiredTokenException;
+import frandz.api_test.exception.InvalidTokenException;
 import frandz.api_test.requests.RegisterRequest;
 import frandz.api_test.responses.AuthenticationResponse;
 import frandz.api_test.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static frandz.api_test.constant.SecurityConstant.APP_BASE_URL;
 
@@ -27,6 +26,12 @@ public class AuthenticationController {
         return ResponseEntity.ok(this.authService.register(request));
     }
 
+    //verification email
+    @GetMapping("verification-token/{token}")
+    public ResponseEntity<AuthenticationResponse> verificationToken(@PathVariable("token") String token) throws InvalidTokenException, ExpiredTokenException
+    {
+        return ResponseEntity.ok(this.authService.validationToken(token));
+    }
 
     //login
 
